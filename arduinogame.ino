@@ -7,6 +7,8 @@ const int X_pin = A0; // analog pin connected to X output
 const int Y_pin = A1; // analog pin connected to Y output
 //                BS  E  D4 D5  D6 D7
 LiquidCrystal lcd(7, 8, 9, 10, 11, 12);
+  int px=0;
+  int py =0;
 void setup() {
   pinMode(SW_pin, INPUT);
   digitalWrite(SW_pin, HIGH);
@@ -14,16 +16,30 @@ void setup() {
 }
 
 void loop() {
+ 
   lcd.setCursor(0, 0);
   lcd.print(" X: ");
-  lcd.print(analogRead(X_pin));
+   px=analogRead(X_pin);
+  py= analogRead(Y_pin);
+  lcd.print(px);
     lcd.print(" --- ");
   lcd.setCursor(8, 0);
       lcd.print(" Y: ");
-  lcd.print(analogRead(Y_pin));
+  lcd.print(py);
   lcd.setCursor(0, 1);
-  lcd.print("refreshing..");
+// player model will go here
+
+if(px&&py){
+  lcd.println(" \xF0\x9F\x98\x81");
+}
+
+else{
+  lcd.print("idk");
+}
 
 
 
+
+
+  
 }
