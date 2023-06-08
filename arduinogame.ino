@@ -1,4 +1,3 @@
-
 #include <LiquidCrystal.h>
 
 const int SW_pin = 2; // digital pin connected to switch output
@@ -28,12 +27,13 @@ void loop() {
   lcd.setCursor(0, 1);
   // player model will go here‰
 
-  if (px && py) {
+  if (px < 1000 && py < 1000) {
+    // neither axis is 0
     lcd.println('@');
   }
 
   else {
     lcd.print("       ");
-     lcd.println('@');
+    lcd.println('@');
   }
 }
