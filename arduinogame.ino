@@ -27,13 +27,20 @@ void loop() {
   lcd.setCursor(0, 1);
   // player model will go here‰
 
-  if (px < 1000 && py < 1000) {
+  if (px < 1000 && py > 1000) {
     // neither axis is 0
-    lcd.println('@');
+    lcd.print('@');
   }
+  if (px > 1000 && py < 1000) {
+    // neither axis is 0
+    lcd.print('3');
+  } 
+  if(px > 1000 && py > 1000){
+    lcd.print('2');
 
+  }
   else {
     lcd.print("       ");
-    lcd.println('@');
+    lcd.print('@');
   }
 }
