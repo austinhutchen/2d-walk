@@ -15,10 +15,15 @@ void setup() {
 
 void loop() {
   lcd.setCursor(0, 0);
+  lcd.print(" X: ");
   lcd.print(analogRead(X_pin));
-  serial.print(analogRead(X_pin));
-  lcd.setCursor(0, 1);
+    lcd.print(" --- ");
+  lcd.setCursor(8, 0);
+      lcd.print(" Y: ");
   lcd.print(analogRead(Y_pin));
-   serial.print(analogRead(Y_pin));
+  lcd.setCursor(0, 1);
+  lcd.print("refreshing..");
   delay(500);
+
+
 }
