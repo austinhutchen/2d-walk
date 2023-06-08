@@ -23,7 +23,7 @@ void loop() {
   lcd.print(analogRead(Y_pin));
   lcd.setCursor(0, 1);
   lcd.print("refreshing..");
-  delay(500);
+
 
 
 }
