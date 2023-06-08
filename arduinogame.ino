@@ -16,7 +16,9 @@ void setup() {
 void loop() {
   lcd.setCursor(0, 0);
   lcd.print(analogRead(X_pin));
+  serial.print(analogRead(X_pin));
   lcd.setCursor(0, 1);
   lcd.print(analogRead(Y_pin));
+   serial.print(analogRead(Y_pin));
   delay(500);
 }
