@@ -24,20 +24,12 @@ struct player {
 struct map {
   char obj;
 };
-struct player *allocatep() {
-  struct player *p = malloc(sizeof(struct player));
-  return p;
-}
-struct map *allocatem() {
-  struct map *m = malloc(sizeof(struct map));
-  return m;
-}
+struct player *allocatep() { return malloc(sizeof(struct player)); }
+struct map *allocatem() { return malloc(sizeof(struct map)); }
 void game(void *p, void *map) {
   // makes player model
 
-
-
-
+  
 }
 void clean(struct player *p, struct map *m) {
   if (p && m) {
