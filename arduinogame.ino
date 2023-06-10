@@ -38,6 +38,8 @@ void clean(struct player *p, struct map *m) {
   }
   return;
 }
+
+
 void loop() {
 
   if (spawned == false) {
@@ -57,7 +59,7 @@ void loop() {
       lcd.setCursor(0, 1);
       // player model will go here‰
       // game(p,m);
-      if (px && py) {
+      if (p->px && p->py) {
         lcd.print('@');
       } else {
         lcd.print("       ");
