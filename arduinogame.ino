@@ -48,7 +48,7 @@ void loop() {
     while (spawned) {
       lcd.setCursor(0, 0);
       lcd.print(" X: ");
-      move();
+      move(p);
       lcd.print(p->px);
       lcd.print(" --- ");
       lcd.setCursor(8, 0);
