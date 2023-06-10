@@ -29,7 +29,7 @@ struct player *allocatep() {
   return p;
 }
 struct map *allocatem() {
-  struct map *m =  malloc(sizeof(struct map));
+  struct map *m = malloc(sizeof(struct map));
   return m;
 }
 void game(void *p, void *map) {
@@ -44,34 +44,35 @@ void clean(struct player *p, struct map *m) {
 }
 void loop() {
 
-  while (true) {
-    if (spawned == false) {
-      struct player *p = allocatep();
-      struct map *m = allocatem();
-      spawned = true;
-    } else {
-    }
-    lcd.setCursor(0, 0);
-    lcd.print(" X: ");
-    px = analogRead(X_pin);
-    py = analogRead(Y_pin);
-    p->px = px;
-    p->py = py;
-    lcd.print(p->px);
-    lcd.print(" --- ");
-    lcd.setCursor(8, 0);
-    lcd.print(" Y: ");
-    lcd.print(p->py);
-    lcd.setCursor(0, 1);
-    // player model will go here‰
+  if (spawned == false) {
+    struct player *p = allocatep();
+    struct map *m = allocatem();
+    spawned = true;
+  } else {
+    while (spawned) {
+      lcd.setCursor(0, 0);
+      lcd.print(" X: ");
+      px = analogRead(X_pin);
+      py = analogRead(Y_pin);
+      p->px = px;
+      p->py = py;
+      lcd.print(p->px);
+      lcd.print(" --- ");
+      lcd.setCursor(8, 0);
+      lcd.print(" Y: ");
+      lcd.print(p->py);
+      lcd.setCursor(0, 1);
+      // player model will go here‰
 
-    if (px && py) {
-      lcd.print('@');
-    } else {
-      lcd.print("       ");
-      lcd.print('@');
+      if (px && py) {
+        lcd.print('@');
+      } else {
+        lcd.print("       ");
+        lcd.print('@');
+      }
     }
   }
+
   clean(p, m);
   return;
 }
