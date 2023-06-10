@@ -34,6 +34,10 @@ struct map *allocatem() {
 }
 void game(void *p, void *map) {
   // makes player model
+
+
+
+
 }
 void clean(struct player *p, struct map *m) {
   if (p && m) {
@@ -63,7 +67,7 @@ void loop() {
       lcd.print(p->py);
       lcd.setCursor(0, 1);
       // player model will go here‰
-
+      // game(p,m);
       if (px && py) {
         lcd.print('@');
       } else {
