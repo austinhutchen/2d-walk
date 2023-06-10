@@ -14,6 +14,8 @@ void setup() {
   pinMode(SW_pin, INPUT);
   digitalWrite(SW_pin, HIGH);
   lcd.begin(16, 2);
+  lcd.setCursor(0, 0);
+  lcd.print("-- WELCOME! --");
 }
 
 struct player {
@@ -25,8 +27,7 @@ struct map {
   char obj;
 };
 
-
-void move(struct player *p){
+void move(struct player *p) {
   p->px = analogRead(X_pin);
   p->py = analogRead(Y_pin);
 }
@@ -38,7 +39,6 @@ void clean(struct player *p, struct map *m) {
   }
   return;
 }
-
 
 void loop() {
 
@@ -65,6 +65,8 @@ void loop() {
         lcd.print("       ");
         lcd.print('@');
       }
+      delay(100);
+      lcd.clear();
     }
   }
 
