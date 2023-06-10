@@ -1,15 +1,15 @@
+#include "./components/LinkedList.hpp"
 #include <LiquidCrystal.h>
-
 const int SW_pin = 2; // digital pin connected to switch output
 const int X_pin = A0; // analog pin connected to X output
 const int Y_pin = A1; // analog pin connected to Y output
 //                BS  E  D4 D5  D6 D7
+int counter=0;
 LiquidCrystal lcd(7, 8, 9, 10, 11, 12);
-int px = 0;
-int py = 0;
 bool spawned = false;
 struct player *p = nullptr;
 struct map *m = nullptr;
+
 void setup() {
   pinMode(SW_pin, INPUT);
   digitalWrite(SW_pin, HIGH);
@@ -41,7 +41,8 @@ void clean(struct player *p, struct map *m) {
 }
 
 void loop() {
-
+  LinkedList<char> list;
+  int counter = 0;
   if (spawned == false) {
     p = malloc(sizeof(struct player));
     m = malloc(sizeof(struct map));
@@ -49,8 +50,8 @@ void loop() {
   } else {
     while (spawned) {
       lcd.setCursor(0, 0);
-      lcd.print(" X: ");
       move(p);
+      lcd.print(" X: ");
       lcd.print(p->px);
       lcd.print(" --- ");
       lcd.setCursor(8, 0);
@@ -59,17 +60,31 @@ void loop() {
       lcd.setCursor(0, 1);
       // player model will go here‰
       // game(p,m);
-      if (p->px && p->py) {
-        lcd.print('@');
-      } else {
-        lcd.print("       ");
-        lcd.print('@');
+      if (p->px ==0 && p->py == 0) {
+        // moving to right
+        // uses linked list
+        counter++;
+        for(int i=0;i<counter;i++){
+                list.Append(' ');
+        }
+        list.Append('@');
+        char character;
+        if (list.moveToStart()) {
+          do {
+            character = list.getCurrent();
+            lcd.print(character);
+          } while (list.next());
+        }
+      } else if (p->px == 500 && p->py == 500) {
+        // joystick still
+        lcd.print("        @");
       }
-      delay(100);
-      lcd.clear();
     }
   }
 
+  delay(100);
+  lcd.clear();
+  counter = 0;
   clean(p, m);
   return;
 }
