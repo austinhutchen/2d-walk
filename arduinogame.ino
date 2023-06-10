@@ -25,8 +25,9 @@ struct map {
   char obj;
 };
 
-void game(void *p, void *map) {
-  // makes player model
+
+void move(struct player *p){
+
 }
 
 void clean(struct player *p, struct map *m) {
