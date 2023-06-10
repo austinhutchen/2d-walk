@@ -25,8 +25,10 @@ struct map {
   char obj;
 };
 
-void game(void *p, void *map) {
-  // makes player model
+
+void move(struct player *p){
+  p->px = analogRead(X_pin);
+  p->py = analogRead(Y_pin);
 }
 
 void clean(struct player *p, struct map *m) {
@@ -36,6 +38,8 @@ void clean(struct player *p, struct map *m) {
   }
   return;
 }
+
+
 void loop() {
 
   if (spawned == false) {
@@ -46,10 +50,7 @@ void loop() {
     while (spawned) {
       lcd.setCursor(0, 0);
       lcd.print(" X: ");
-      px = analogRead(X_pin);
-      py = analogRead(Y_pin);
-      p->px = px;
-      p->py = py;
+      move(p);
       lcd.print(p->px);
       lcd.print(" --- ");
       lcd.setCursor(8, 0);
@@ -58,7 +59,7 @@ void loop() {
       lcd.setCursor(0, 1);
       // player model will go here‰
       // game(p,m);
-      if (px && py) {
+      if (p->px && p->py) {
         lcd.print('@');
       } else {
         lcd.print("       ");
