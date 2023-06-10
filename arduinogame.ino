@@ -27,7 +27,8 @@ struct map {
 
 
 void move(struct player *p){
-
+  p->px = analogRead(X_pin);
+  p->py = analogRead(Y_pin);
 }
 
 void clean(struct player *p, struct map *m) {
@@ -47,10 +48,7 @@ void loop() {
     while (spawned) {
       lcd.setCursor(0, 0);
       lcd.print(" X: ");
-      px = analogRead(X_pin);
-      py = analogRead(Y_pin);
-      p->px = px;
-      p->py = py;
+      move();
       lcd.print(p->px);
       lcd.print(" --- ");
       lcd.setCursor(8, 0);
