@@ -43,8 +43,8 @@ void clean(struct player *p, struct map *m) {
 void loop() {
 
   if (spawned == false) {
-    struct player *p = malloc(sizeof(struct player));
-    struct map *m = malloc(sizeof(struct map));
+    p = malloc(sizeof(struct player));
+    m = malloc(sizeof(struct map));
     spawned = true;
   } else {
     while (spawned) {
