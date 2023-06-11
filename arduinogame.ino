@@ -14,7 +14,10 @@ struct player {
   int px;
   int py;
 };
-
+struct map{
+  int x;
+  int y;
+}
 void printList(Node *head) {
   short unsigned count = 0;
   Node *temp = head;
@@ -43,10 +46,13 @@ void setup() {
 
 void loop() {
   // add exit button to circuit board
+  // use map struct to determine previous position vs current position 
+  // 
   LinkedList list = LinkedList();
   short unsigned counter = 0;
   if (spawned == false) {
     p = malloc(sizeof(struct player));
+    map = malloc(sizeof(struct map));
     spawned = true;
   } else {
     lcd.setCursor(0, 1);
@@ -69,6 +75,7 @@ void loop() {
       printList(list.peek());
     }
     if (counter>3) {
+      // this condition will need changing to execute movement
       counter = 0;
       free(p);
       list.clear();
