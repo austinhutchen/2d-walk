@@ -42,7 +42,7 @@ void move(struct player *p) {
 }
 
 void clean(struct player *p, struct map *m, LinkedList *list) {
-  if (p && m) {
+  if (p != 0x0 && m!=0x0 && list!=0x0) {
     delete p;
     delete m;
     delete list;
