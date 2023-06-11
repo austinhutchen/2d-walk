@@ -59,7 +59,7 @@ void loop() {
     lcd.setCursor(0, 0);
     // player model will go here‰
     // game(p,m);
-    if (p->px <= 100) {
+    if (p->px <= 300) {
       // moving to right
       for (unsigned short i = 0; i < counter; i++) {
         list.Append(' ');
