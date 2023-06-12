@@ -11,7 +11,7 @@ class LinkedList {
 private:
   Node *head;
   Node *tail;
-
+  unsigned short len;
 public:
   LinkedList() { head = tail = 0x0; }
 
@@ -43,4 +43,8 @@ public:
   Node *peek() { return head; }
 
   bool isEmpty() { return (head == 0x0); }
+
+  unsigned short size(){
+    return len;
+  }
 };

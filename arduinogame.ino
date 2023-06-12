@@ -10,7 +10,7 @@ bool spawned = false;
 struct player *p = 0x0;
 struct matrix *m = 0x0;
 short unsigned counter = 0;
-LinkedList *list = 0x0;
+LinkedList *list = new LinkedList();
 struct player {
   // track current player position on map
   int px;
@@ -25,7 +25,7 @@ struct matrix {
 void printList(Node *head) {
   short unsigned count = 0;
   Node *temp = head;
-  while (temp) {
+  while (temp!=0x0) {
     lcd.print(temp->key);
     count++;
     lcd.setCursor(0, count);
@@ -54,7 +54,7 @@ void game(struct player *p, LinkedList *list, unsigned short counter) {
   // game(p,m);
   if (p->px <= 300) {
     // moving to right
-    for (unsigned short i = 0; i < counter; i++) {
+    for (unsigned short i = list->size(); i < counter; i++) {
       list->Append(' ');
     }
     counter++;
@@ -74,26 +74,20 @@ void setup() {
 void loop() {
   // add exit button to circuit board
   // use map struct to determine previous position vs current position
-  if (list != 0x0) {
-    if (spawned == false) {
-      p = malloc(sizeof(struct player));
-      spawned = true;
-    }
-    game(p, list, counter);
-    if (counter > 8) {
-      // this condition will need changing to execute movement
-      // will replace this with analog button read
-      free(p);
-      list->clear();
-      p = 0x0;
-      return;
-    }
-    delay(100);
-    lcd.clear();
-    return loop();
-
-  } else {
-    list = new LinkedList();
-    return loop();
+  if (spawned == false) {
+    p = malloc(sizeof(struct player));
+    spawned = true;
   }
+  game(p, list, counter);
+  if (counter > 7) {
+    // this condition will need changing to execute movement
+    // will replace this with analog button read
+    free(p);
+    list->clear();
+    p = 0x0;
+    return;
+  }
+  delay(100);
+  lcd.clear();
+  return loop();
 }
