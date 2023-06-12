@@ -9,7 +9,8 @@ LiquidCrystal lcd(7, 8, 9, 10, 11, 12);
 bool spawned = false;
 struct player *p = 0x0;
 struct matrix *m = 0x0;
-
+short unsigned counter = 0;
+LinkedList *list = 0x0;
 struct player {
   // track current player position on map
   int px;
@@ -63,13 +64,12 @@ void game(struct player *p, LinkedList *list, unsigned short counter) {
     list->clear();
   }
 }
+
 void setup() {
   pinMode(SW_pin, INPUT);
   digitalWrite(SW_pin, HIGH);
   lcd.begin(16, 2);
 }
-short unsigned counter = 0;
-LinkedList *list = 0x0;
 
 void loop() {
   // add exit button to circuit board
