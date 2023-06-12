@@ -86,9 +86,9 @@ void loop() {
     list->clear();
     lcd.setCursor(0, 0);
     lcd.clear();
-    delay(100);
-    lcd.print("--->BYE!");
     delay(10);
+    lcd.print("--->BYE!");
+    delay(500);
     lcd.clear();
     free(p);
     p = 0x0;
