@@ -11,7 +11,7 @@ class LinkedList {
 private:
   Node *head;
   Node *tail;
-
+  unsigned short len;
 public:
   LinkedList() { head = tail = 0x0; }
 
@@ -31,16 +31,20 @@ public:
       return;
     }
   }
-    void clear(){
-      Node * temp = head;
-      Node * t2= 0x0;
-      while(temp!=0x0){
-        t2 = temp->next;
-        delete temp;
-        temp=t2;
-      }
+  void clear() {
+    Node *temp = head;
+    Node *t2 = 0x0;
+    while (temp != 0x0) {
+      t2 = temp->next;
+      delete temp;
+      temp = t2;
     }
+  }
   Node *peek() { return head; }
 
   bool isEmpty() { return (head == 0x0); }
+
+  unsigned short size(){
+    return len;
+  }
 };

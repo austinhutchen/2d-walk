@@ -7,21 +7,25 @@ const int Y_pin = A1; // analog pin connected to Y output
 //                BS  E  D4 D5  D6 D7
 LiquidCrystal lcd(7, 8, 9, 10, 11, 12);
 bool spawned = false;
-struct player *p = nullptr;
-struct map *m = nullptr;
-
+struct player *p = 0x0;
+struct matrix *m = 0x0;
+short unsigned counter = 0;
+LinkedList *list = new LinkedList();
 struct player {
+  // track current player position on map
   int px;
   int py;
 };
-struct map{
+struct matrix {
+  // track previous player position on map
   int x;
   int y;
-}
+};
+
 void printList(Node *head) {
   short unsigned count = 0;
   Node *temp = head;
-  while (temp) {
+  while (temp!=0x0) {
     lcd.print(temp->key);
     count++;
     lcd.setCursor(0, count);
@@ -37,6 +41,29 @@ void move(struct player *p) {
     printf("%d", " READ ERROR \n");
   }
 }
+void game(struct player *p, LinkedList *list, unsigned short counter) {
+  // algorithm for running the game itself
+  lcd.setCursor(0, 1);
+  move(p);
+  lcd.print(" X: ");
+  lcd.print(p->px);
+  lcd.setCursor(8, 1);
+  lcd.print(" Y: ");
+  lcd.print(p->py);
+  // player model will go here‰
+  // game(p,m);
+  if (p->px <= 300) {
+    // moving to right
+    for (unsigned short i = list->size(); i < counter; i++) {
+      list->Append(' ');
+    }
+    counter++;
+    list->Append('@');
+    lcd.setCursor(0, 0);
+    printList(list->peek());
+    list->clear();
+  }
+}
 
 void setup() {
   pinMode(SW_pin, INPUT);
@@ -46,43 +73,21 @@ void setup() {
 
 void loop() {
   // add exit button to circuit board
-  // use map struct to determine previous position vs current position 
-  // 
-  LinkedList list = LinkedList();
-  short unsigned counter = 0;
+  // use map struct to determine previous position vs current position
   if (spawned == false) {
     p = malloc(sizeof(struct player));
-    map = malloc(sizeof(struct map));
     spawned = true;
-  } else {
-    lcd.setCursor(0, 1);
-    move(p);
-    lcd.print(" X: ");
-    lcd.print(p->px);
-    lcd.setCursor(8, 1);
-    lcd.print(" Y: ");
-    lcd.print(p->py);
-    lcd.setCursor(0, 0);
-    // player model will go here‰
-    // game(p,m);
-    if (p->px <= 300) {
-      // moving to right
-      for (unsigned short i = 0; i < counter; i++) {
-        list.Append(' ');
-      }
-      counter++;
-      list.Append('@');
-      printList(list.peek());
-    }
-    if (counter>3) {
-      // this condition will need changing to execute movement
-      counter = 0;
-      free(p);
-      list.clear();
-      p = 0x0;
-      return;
-    }
   }
-  delay(10);
+  game(p, list, counter);
+  if (counter > 7) {
+    // this condition will need changing to execute movement
+    // will replace this with analog button read
+    free(p);
+    list->clear();
+    p = 0x0;
+    return;
+  }
+  delay(100);
   lcd.clear();
+  return loop();
 }
