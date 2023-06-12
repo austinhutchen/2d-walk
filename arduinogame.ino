@@ -1,15 +1,6 @@
 
 #include "./components/myll.hpp"
 #include <LiquidCrystal.h>
-const int SW_pin = 2; // digital pin connected to switch output
-const int X_pin = A0; // analog pin connected to X output
-const int Y_pin = A1; // analog pin connected to Y output
-//                BS  E  D4 D5  D6 D7
-LiquidCrystal lcd(7, 8, 9, 10, 11, 12);
-int buttonApin = 1;
-
-short unsigned counter = 0;
-LinkedList *list = new LinkedList();
 struct player {
   // track current player position on map
   int px;
@@ -20,6 +11,16 @@ struct matrix {
   int x;
   int y;
 };
+const int SW_pin = 2; // digital pin connected to switch output
+const int X_pin = A0; // analog pin connected to X output
+const int Y_pin = A1; // analog pin connected to Y output
+//                BS  E  D4 D5  D6 D7
+LiquidCrystal lcd(7, 8, 9, 10, 11, 12);
+int buttonApin = 1;
+short unsigned counter = 0;
+LinkedList *list = new LinkedList();
+struct player *p = malloc(sizeof(struct player));
+struct matrix *m = 0x0;
 
 void printList(Node *head) {
   short unsigned count = 0;
@@ -41,8 +42,6 @@ void move(struct player *p) {
   }
 }
 
-struct player *p = malloc(sizeof(struct player));
-struct matrix *m = 0x0;
 void game(struct player *p, LinkedList *list, unsigned short counter) {
   // algorithm for running the game itself
   lcd.setCursor(0, 1);
