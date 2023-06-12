@@ -40,7 +40,29 @@ void move(struct player *p) {
     printf("%d", " READ ERROR \n");
   }
 }
-
+void game(struct player *p, LinkedList *list, unsigned short counter) {
+  // algorithm for running the game itself
+  lcd.setCursor(0, 1);
+  move(p);
+  lcd.print(" X: ");
+  lcd.print(p->px);
+  lcd.setCursor(8, 1);
+  lcd.print(" Y: ");
+  lcd.print(p->py);
+  // player model will go here‰
+  // game(p,m);
+  if (p->px <= 300) {
+    // moving to right
+    for (unsigned short i = 0; i < counter; i++) {
+      list->Append(' ');
+    }
+    counter++;
+    list->Append('@');
+    lcd.setCursor(0, 0);
+    printList(list->peek());
+    list->clear();
+  }
+}
 void setup() {
   pinMode(SW_pin, INPUT);
   digitalWrite(SW_pin, HIGH);
@@ -57,26 +79,7 @@ void loop() {
       p = malloc(sizeof(struct player));
       spawned = true;
     }
-    lcd.setCursor(0, 1);
-    move(p);
-    lcd.print(" X: ");
-    lcd.print(p->px);
-    lcd.setCursor(8, 1);
-    lcd.print(" Y: ");
-    lcd.print(p->py);
-    // player model will go here‰
-    // game(p,m);
-    if (p->px <= 300) {
-      // moving to right
-      for (unsigned short i = 0; i < counter; i++) {
-        list->Append(' ');
-      }
-      counter++;
-      list->Append('@');
-      lcd.setCursor(0, 0);
-      printList(list->peek());
-      list->clear();
-    }
+    game(p, list, counter);
     if (counter > 8) {
       // this condition will need changing to execute movement
       // will replace this with analog button read
