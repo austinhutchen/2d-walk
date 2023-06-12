@@ -7,6 +7,7 @@ const int Y_pin = A1; // analog pin connected to Y output
 //                BS  E  D4 D5  D6 D7
 LiquidCrystal lcd(7, 8, 9, 10, 11, 12);
 bool spawned = false;
+int buttonApin = 1;
 struct player *p = 0x0;
 struct matrix *m = 0x0;
 short unsigned counter = 0;
@@ -25,7 +26,7 @@ struct matrix {
 void printList(Node *head) {
   short unsigned count = 0;
   Node *temp = head;
-  while (temp!=0x0) {
+  while (temp != 0x0) {
     lcd.print(temp->key);
     count++;
     lcd.setCursor(0, count);
@@ -79,11 +80,17 @@ void loop() {
     spawned = true;
   }
   game(p, list, counter);
-  if (counter > 7) {
+  if (digitalRead(buttonApin) == LOW) {
     // this condition will need changing to execute movement
     // will replace this with analog button read
     free(p);
     list->clear();
+    lcd.clear();
+    delay(5);
+    lcd.setCursor(0, 0);
+    lcd.print("--->BYE!");
+    delay(5);
+    lcd.clear();
     p = 0x0;
     return;
   }
