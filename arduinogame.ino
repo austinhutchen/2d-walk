@@ -83,14 +83,14 @@ void loop() {
   if (digitalRead(buttonApin) == LOW) {
     // this condition will need changing to execute movement
     // will replace this with analog button read
-    free(p);
     list->clear();
-    lcd.clear();
-    delay(5);
     lcd.setCursor(0, 0);
-    lcd.print("--->BYE!");
-    delay(5);
     lcd.clear();
+    delay(100);
+    lcd.print("--->BYE!");
+    delay(10);
+    lcd.clear();
+    free(p);
     p = 0x0;
     return;
   }
