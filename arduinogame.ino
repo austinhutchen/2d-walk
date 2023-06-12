@@ -23,7 +23,7 @@ struct player *p = malloc(sizeof(struct player));
 struct matrix *m = 0x0;
 
 void printList(Node *head) {
-      lcd.setCursor(0, 0);
+  lcd.setCursor(0, 0);
   short unsigned count = 0;
   Node *temp = head;
   while (temp != 0x0) {
@@ -35,12 +35,9 @@ void printList(Node *head) {
 }
 
 void move(struct player *p) {
-  if (analogRead(X_pin) && analogRead(Y_pin)) {
-    p->px = analogRead(X_pin);
-    p->py = analogRead(Y_pin);
-  } else {
-    printf("%d", " READ ERROR \n");
-  }
+  p->px = analogRead(X_pin);
+  p->py = analogRead(Y_pin);
+  return;
 }
 
 void game(struct player *p, LinkedList *list, unsigned short counter) {
@@ -59,10 +56,11 @@ void game(struct player *p, LinkedList *list, unsigned short counter) {
     for (unsigned short i = list->size(); i < counter; i++) {
       list->Append(' ');
     }
-    if(counter<7){
+    if (counter < 7) {
       // boundary check for map
-    counter++;
-
+      counter++;
+    } else {
+      counter--;
     }
     list->Append('@');
     printList(list->peek());
