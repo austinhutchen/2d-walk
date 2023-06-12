@@ -74,18 +74,13 @@ void setup() {
 }
 
 void loop() {
-  // add exit button to circuit board
-  // use map struct to determine previous position vs current position
   while (digitalRead(buttonApin) != LOW) {
     game(p, list, counter);
-    // runs every iteration using recursion
     delay(100);
     lcd.clear();
   }
 
   // EXIT CONDITION
-  // this condition will need changing to execute movement
-  // will replace this with analog button read
   list->clear();
   lcd.setCursor(0, 0);
   lcd.clear();
@@ -95,6 +90,5 @@ void loop() {
   lcd.clear();
   free(p);
   p = 0x0;
-
   return;
 }
