@@ -84,8 +84,10 @@ void game(struct player *p, LinkedList *list, unsigned short counter) {
       // counter ==0;
       lcd.clear();
       lcd.setCursor(0, 0);
+      delay(50);
       lcd.print("ERROR");
       lcd.clear();
+      delay(50);
       printList(list->peek());
     }
   }
