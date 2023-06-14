@@ -41,6 +41,9 @@ void move(struct player *p) {
 
 void game(struct player *p, LinkedList *list, unsigned short counter) {
   // algorithm for running the game itself
+  if(list == 0x0){
+      list=new LinkedList();
+  }
   lcd.setCursor(0, 1);
   move(p);
   lcd.print(" X: ");
@@ -56,7 +59,6 @@ void game(struct player *p, LinkedList *list, unsigned short counter) {
       counter++;
     } else {
       list->clear();
-      list=new LinkedList();
       counter=0;
     }
     // moving to right
@@ -67,6 +69,15 @@ void game(struct player *p, LinkedList *list, unsigned short counter) {
     list->Append('@');
       lcd.setCursor(0, 0);
     printList(list->peek());
+  }
+  if(p->px >= 1000){
+    if(counter > 0 ){
+      counter --;
+    }
+    else{
+      //counter ==0;
+      return;
+    }
   }
 }
 
