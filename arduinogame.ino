@@ -71,7 +71,7 @@ void game(struct player *p, LinkedList *list, unsigned short counter) {
     lcd.setCursor(0, 0);
     printList(list->peek());
   }
-  if (p->px >= 1000) {
+  if (p->py >= 1000) {
     if (counter > 0) {
       counter--;
       list->pop();
