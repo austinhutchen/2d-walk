@@ -1,5 +1,5 @@
 
-#include "./components/myll.hpp" 
+#include "./components/myll.hpp"
 #include <LiquidCrystal.h>
 struct player {
   // track current player position on map
@@ -41,8 +41,8 @@ void move(struct player *p) {
 
 void game(struct player *p, LinkedList *list, unsigned short counter) {
   // algorithm for running the game itself
-  if(list == 0x0){
-      list=new LinkedList();
+  if (list->isEmpty()) {
+    list = new LinkedList();
   }
   lcd.setCursor(0, 1);
   move(p);
@@ -59,23 +59,29 @@ void game(struct player *p, LinkedList *list, unsigned short counter) {
       counter++;
     } else {
       list->clear();
-      counter=0;
+      counter = 0;
     }
     // moving to right
     for (unsigned short i = list->size(); i < counter; i++) {
       list->Append(' ');
     }
-    
+
     list->Append('@');
-      lcd.setCursor(0, 0);
+    lcd.setCursor(0, 0);
     printList(list->peek());
   }
-  if(p->px >= 1000){
-    if(counter > 0 ){
-      counter --;
-    }
-    else{
-      //counter ==0;
+  if (p->px >= 1000) {
+    if (counter > 0) {
+      counter--;
+      if (list->size() > 1) {
+        list->pop();
+        list->pop();
+      } else {
+        list->pop();
+      }
+
+    } else {
+      // counter ==0;
       return;
     }
   }
