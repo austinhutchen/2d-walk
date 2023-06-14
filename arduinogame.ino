@@ -71,7 +71,7 @@ void game(struct player *p, LinkedList *list, unsigned short counter) {
     lcd.setCursor(0, 0);
     printList(list->peek());
   }
-  if (p->py >= 1000) {
+  if (p->py >= 800) {
     if (counter > 0) {
       counter--;
       list->pop();
@@ -82,7 +82,11 @@ void game(struct player *p, LinkedList *list, unsigned short counter) {
 
     } else {
       // counter ==0;
-      return;
+      lcd.clear();
+      lcd.setCursor(0, 0);
+      lcd.print("ERROR");
+      lcd.clear();
+      printList(list->peek());
     }
   }
 }
