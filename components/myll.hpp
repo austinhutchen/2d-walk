@@ -10,10 +10,11 @@ struct Node {
 class LinkedList {
 private:
   Node *head;
+  Node *tail;
 
 public:
   LinkedList() { head = 0x0; }
-// problem is here, in append algorithm
+  // problem is here, in append algorithm
   void Append(char a) {
     Node *n = new Node();
     n->key = a;
@@ -42,13 +43,26 @@ public:
 
   bool isEmpty() { return (head == 0x0); }
 
-  unsigned short size(){
-    int len =0;
-    Node* temp = head;
-    while(temp!=0x0){
+  unsigned short size() {
+    int len = 0;
+    Node *temp = head;
+    while (temp != 0x0) {
       len++;
-      temp=temp->next;
+      temp = temp->next;
     }
     return len;
+  }
+
+  Node *last() {
+    Node *temp = head;
+    while (temp->next != 0x0) {
+      temp = temp->next;
+    }
+    return temp;
+  }
+  void pop() {
+    Node *end = last();
+    delete end;
+    end = 0x0;
   }
 };
