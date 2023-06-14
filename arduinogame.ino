@@ -102,7 +102,7 @@ void setup() {
 void loop() {
   while (digitalRead(buttonApin) != LOW) {
     game(p, list, counter);
-    delay(100);
+    delay(10);
     lcd.clear();
   }
 
