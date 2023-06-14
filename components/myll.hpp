@@ -1,4 +1,4 @@
-
+#define NULL 0x0
 
 #pragma ONCE
 
@@ -13,14 +13,14 @@ private:
   Node *tail;
 
 public:
-  LinkedList() { head = 0x0; }
+  LinkedList() { head = NULL; }
   // problem is here, in append algorithm
   void Append(char a) {
     Node *n = new Node();
     n->key = a;
     Node *temp = head;
     if (temp) {
-      while (temp->next != 0x0) {
+      while (temp->next != NULL) {
         temp = temp->next;
       }
       temp->next = n;
@@ -32,8 +32,8 @@ public:
   }
   void clear() {
     Node *temp = head;
-    Node *t2 = 0x0;
-    while (temp != 0x0) {
+    Node *t2 = NULL;
+    while (temp != NULL) {
       t2 = temp->next;
       delete temp;
       temp = t2;
@@ -41,12 +41,12 @@ public:
   }
   Node *peek() { return head; }
 
-  bool isEmpty() { return (head == 0x0); }
+  bool isEmpty() { return (head == NULL); }
 
   unsigned short size() {
     int len = 0;
     Node *temp = head;
-    while (temp != 0x0) {
+    while (temp != NULL) {
       len++;
       temp = temp->next;
     }
@@ -55,7 +55,7 @@ public:
 
   Node *last() {
     Node *temp = head;
-    while (temp->next != 0x0) {
+    while (temp->next != NULL) {
       temp = temp->next;
     }
     return temp;
@@ -63,6 +63,6 @@ public:
   void pop() {
     Node *end = last();
     delete end;
-    end = 0x0;
+    end = NULL;
   }
 };
