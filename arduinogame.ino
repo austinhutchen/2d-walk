@@ -7,11 +7,14 @@ struct player {
   int px;
   int py;
 };
+
 struct matrix {
   // track previous player position on map
   int x;
   int y;
 };
+
+
 const int SW_pin = 2; // digital pin connected to switch output
 const int X_pin = A0; // analog pin connected to X output
 const int Y_pin = A1; // analog pin connected to Y output
@@ -29,7 +32,6 @@ void printList(Node *head) {
   while (temp != NULL) {
     lcd.print(temp->key);
     count++;
-    lcd.setCursor(0, count);
     temp = temp->next;
   }
 }
@@ -42,9 +44,6 @@ void move(struct player *p) {
 
 void game(struct player *p, LinkedList *list, unsigned short counter) {
   // algorithm for running the game itself
-  if (list->isEmpty()) {
-    list = new LinkedList();
-  }
   lcd.setCursor(0, 1);
   move(p);
   lcd.print(" X: ");
@@ -71,7 +70,7 @@ void game(struct player *p, LinkedList *list, unsigned short counter) {
     lcd.setCursor(0, 0);
     printList(list->peek());
   }
-  if (p->py >= 1000) {
+  if (p->py >= 800) {
     if (counter > 0) {
       counter--;
       list->pop();
@@ -82,7 +81,13 @@ void game(struct player *p, LinkedList *list, unsigned short counter) {
 
     } else {
       // counter ==0;
-      return;
+      lcd.clear();
+      lcd.setCursor(0, 0);
+      delay(50);
+      lcd.print("ERROR");
+      lcd.clear();
+      delay(50);
+      printList(list->peek());
     }
   }
 }
@@ -95,8 +100,11 @@ void setup() {
 
 void loop() {
   while (digitalRead(buttonApin) != LOW) {
+    if (list->isEmpty()) {
+    list = new LinkedList();
+  }
     game(p, list, counter);
-    delay(100);
+    delay(10);
     lcd.clear();
   }
 
