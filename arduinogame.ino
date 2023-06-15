@@ -62,7 +62,7 @@ void game(struct player *p, LinkedList *list, unsigned short counter) {
       counter = 0;
     }
     // moving to right
-    for (unsigned short i = list->size(); i < counter; i++) {
+    for (unsigned short i = 0; i < counter; i++) {
       list->Append(' ');
     }
 
@@ -110,13 +110,11 @@ void loop() {
 
   // EXIT CONDITION
   list->clear();
-  lcd.clear();
   delay(10);
   lcd.setCursor(0, 0);
   lcd.print("--->BYE!");
-  delay(500);
+  delay(400);
   lcd.clear();
   free(p);
-  p = NULL;
   return;
 }
