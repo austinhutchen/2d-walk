@@ -62,12 +62,8 @@ void game(struct player *p, LinkedList *list, unsigned short counter) {
       counter = 0;
     }
     // moving to right
-    for (unsigned short i = list->size(); i < counter; i++) {
-      list->Append(' ');
-    }
-
     list->Append('@');
-    lcd.setCursor(0, 0);
+    lcd.setCursor(counter, 0);
     printList(list->peek());
   }
   if (p->py >= 800) {
@@ -75,10 +71,6 @@ void game(struct player *p, LinkedList *list, unsigned short counter) {
       counter--;
       list->pop();
       // need a better function for LL removal
-      if (list->size() > 1) {
-        list->pop();
-      }
-
     } else {
       // counter ==0;
       lcd.clear();
