@@ -104,7 +104,7 @@ void loop() {
     list = new LinkedList();
   }
     game(p, list, counter);
-    delay(10);
+    delay(100);
     lcd.clear();
   }
 
