@@ -14,7 +14,6 @@ struct matrix {
   int y;
 };
 
-
 const int SW_pin = 2; // digital pin connected to switch output
 const int X_pin = A0; // analog pin connected to X output
 const int Y_pin = A1; // analog pin connected to Y output
@@ -27,11 +26,9 @@ struct player *p = malloc(sizeof(struct player));
 struct matrix *m = NULL;
 
 void printList(Node *head) {
-  short unsigned count = 0;
   Node *temp = head;
   while (temp != NULL) {
     lcd.print(temp->key);
-    count++;
     temp = temp->next;
   }
 }
@@ -59,6 +56,7 @@ void game(struct player *p, LinkedList *list, unsigned short counter) {
       counter++;
     } else {
       list->clear();
+      lcd.clear();
       counter = 0;
     }
     // moving to right
@@ -71,7 +69,7 @@ void game(struct player *p, LinkedList *list, unsigned short counter) {
       counter--;
       list->pop();
       // need a better function for LL removal
-    } else {
+    } else if (counter == 0) {
       // counter ==0;
       lcd.clear();
       lcd.setCursor(0, 0);
@@ -93,11 +91,12 @@ void setup() {
 void loop() {
   while (digitalRead(buttonApin) != LOW) {
     if (list->isEmpty()) {
-    list = new LinkedList();
-  }
+      list = new LinkedList();
+    }
     game(p, list, counter);
     delay(100);
     lcd.clear();
+    
   }
 
   // EXIT CONDITION
