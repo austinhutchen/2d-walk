@@ -60,8 +60,9 @@ void game(struct player *p, LinkedList *list, unsigned short counter) {
       counter = 0;
     }
     // moving to right
-    list->Append('@');
+    list->pop();
     lcd.setCursor(counter, 0);
+    list->Append('@');
     printList(list->peek());
   }
   if (p->py >= 800) {
