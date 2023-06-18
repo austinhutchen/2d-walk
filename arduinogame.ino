@@ -54,17 +54,22 @@ void game(struct player *p, LinkedList *list, unsigned short counter) {
     if (counter < 7) {
       // boundary check for map
       counter++;
+      list->popbck();
+      lcd.setCursor(counter, 0);
+      list->Append('@');
     }
     // moving to right
-    list->popfr();
-    lcd.setCursor(counter, 0);
-    list->Append('@');
+
     printList(list->peek());
   }
   if (p->py >= 800) {
     if (counter > 0) {
       counter--;
+      Node *nn = new Node();
+      nn->key = ('@');
+      list->makehead(nn);
       list->popbck();
+
       // need a better function for LL removal
     } else if (counter == 0) {
       // counter ==0;
@@ -93,7 +98,6 @@ void loop() {
     game(p, list, counter);
     delay(100);
     lcd.clear();
-    
   }
 
   // EXIT CONDITION
