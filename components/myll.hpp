@@ -60,7 +60,7 @@ public:
     }
     return temp;
   }
-  void pop() {
+  void popfr() {
     if (head == NULL) {
       return;
     } else {
@@ -68,6 +68,28 @@ public:
       Node *temp = head->next;
       delete head;
       head = temp;
+    }
+  }
+  void popbck() {
+    if (head == NULL) {
+      return;
+    } else {
+      Node *temp = head;
+      while (temp->next != NULL) {
+        temp = temp->next;
+      }
+      delete temp;
+      temp = 0x0;
+    }
+  }
+  void makehead(Node *nn) {
+    if (head == NULL) {
+      head = nn;
+    } else {
+            Node * temp = head;
+      nn->next=temp;
+      head = nn;
+      return;
     }
   }
 };
