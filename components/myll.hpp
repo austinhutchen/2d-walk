@@ -68,8 +68,6 @@ public:
       Node *temp = head->next;
       delete head;
       head = temp;
-      delete temp;
-      temp = NULL;
     }
   }
 };
