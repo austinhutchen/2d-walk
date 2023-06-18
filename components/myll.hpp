@@ -61,16 +61,13 @@ public:
     return temp;
   }
   void pop() {
-    if(head==NULL){
+    if (head == NULL) {
       return;
+    } else {
+      Node *beg = head;
+      Node *temp = head->next;
+      delete head;
+      head = temp;
     }
-    else{
-Node *beg = head;
-    Node * temp = head->next;
-    delete head;
-    head=temp;
-    delete temp;
-    temp=NULL;
-    }
- }
+  }
 };
