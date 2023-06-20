@@ -39,7 +39,7 @@ void move(struct player *p) {
   return;
 }
 
-void game(struct player *p, LinkedList *list, unsigned short counter) {
+void game(struct player *p, LinkedList *list, unsigned short &counter) {
   // algorithm for running the game itself
   lcd.setCursor(0, 1);
   move(p);
@@ -51,10 +51,10 @@ void game(struct player *p, LinkedList *list, unsigned short counter) {
   // player model will go here‰
   // game(p,m);
   if (p->py == 0) {
-    if (counter < 7) {
+    if (counter < 15) {
       // boundary check for map
       counter++;
-      list->popbck();
+      list->popfr();
       lcd.setCursor(counter, 0);
       list->Append('@');
     }
