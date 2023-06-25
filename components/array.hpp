@@ -25,11 +25,15 @@ public:
   }
   bool spawned() { return (p != 0x0); }
   void right() {
-    if (p->column < 16 ) {
+    if (p->column < 16) {
       p->column += 1;
       // y represents columns
       map[0][p->column] = p->character;
       map[0][p->column - 1] = ' ';
+    }
+    if (p->column == 16) { 
+      p->row = 1;
+      p->column = 0;
     }
   }
   void left() {
@@ -40,6 +44,7 @@ public:
       map[0][p->column + 1] = ' ';
     }
   }
+
   void clear() {
     for (int i = 0; i < 2; i++) {
       if (map[i] != 0x0) {
@@ -50,7 +55,7 @@ public:
     delete[] map;
     map = 0x0;
     delete p;
-    p=0x0;
+    p = 0x0;
   }
 
 private:

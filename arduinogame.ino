@@ -24,10 +24,7 @@ void game(struct player *p, matrix *grid) {
   if (p->character != '~') {
     p->character = '~';
   }
-  // algorithm for running the game itself
-
-  // player model will go here‰
-  // game(p,m);
+  
   if (analogRead(Y_pin) == 0) {
 
     // moving to right
