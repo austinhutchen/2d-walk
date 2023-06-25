@@ -1,18 +1,7 @@
 
+#include "./components/array.hpp"
 #include "./components/myll.hpp"
 #include <LiquidCrystal.h>
-
-struct player {
-  // track current player position on map
-  int px;
-  int py;
-};
-
-struct matrix {
-  // track previous player position on map
-  int x;
-  int y;
-};
 
 const int SW_pin = 2; // digital pin connected to switch output
 const int X_pin = A0; // analog pin connected to X output
@@ -20,29 +9,23 @@ const int Y_pin = A1; // analog pin connected to Y output
 //                BS  E  D4 D5  D6 D7
 LiquidCrystal lcd(7, 8, 9, 10, 11, 12);
 int buttonApin = 1;
-short unsigned counter = 0;
-LinkedList *list = new LinkedList();
-struct player *p = malloc(sizeof(struct player));
-struct matrix *m = NULL;
 
-void printList(Node *head) {
-  Node *temp = head;
-  while (temp != NULL) {
-    lcd.print(temp->key);
-    temp = temp->next;
+void display(matrix *matrix) {
+  for (int i = 0; i < 2; i++) {
+    for (int k = 0; k < 16; k++) {
+      lcd.print(matrix->map[i][k]);
+    }
   }
 }
 
-void move(struct player *p) {
-  p->px = analogRead(X_pin);
-  p->py = analogRead(Y_pin);
-  return;
-}
+struct player *p = malloc(sizeof(struct player));
+matrix *m = new matrix(p,2,16);
 
-void game(struct player *p, LinkedList *list, unsigned short &counter) {
+
+
+void game(struct player *p, matrix *grid) {
   // algorithm for running the game itself
   lcd.setCursor(0, 1);
-  move(p);
   lcd.print(" X: ");
   lcd.print(p->px);
   lcd.setCursor(8, 1);
@@ -50,37 +33,15 @@ void game(struct player *p, LinkedList *list, unsigned short &counter) {
   lcd.print(p->py);
   // player model will go here‰
   // game(p,m);
-  if (p->py == 0) {
-    if (counter < 15) {
-      // boundary check for map
-      counter++;
-      list->popfr();
-      lcd.setCursor(counter, 0);
-      list->Append('@');
-    }
+  if (analogRead(Y_pin) == 0) {
+
     // moving to right
-
-    printList(list->peek());
+    p->px += 1;
+    m->right();
+    display(m);
   }
-  if (p->py >= 800) {
-    if (counter > 0) {
-      counter--;
-      Node *nn = new Node();
-      nn->key = ('@');
-      list->makehead(nn);
-      list->popbck();
+  if (analogRead(Y_pin) >= 800) {
 
-      // need a better function for LL removal
-    } else if (counter == 0) {
-      // counter ==0;
-      lcd.clear();
-      lcd.setCursor(0, 0);
-      delay(50);
-      lcd.print("ERROR");
-      lcd.clear();
-      delay(50);
-      printList(list->peek());
-    }
   }
 }
 
@@ -92,16 +53,16 @@ void setup() {
 
 void loop() {
   while (digitalRead(buttonApin) != LOW) {
-    if (list->isEmpty()) {
-      list = new LinkedList();
+    if (!m->spawned()) {
+      // player failed to spawn
+      return;
     }
-    game(p, list, counter);
+    game(p, m);
     delay(100);
     lcd.clear();
   }
-
   // EXIT CONDITION
-  list->clear();
+  m->clear();
   delay(10);
   lcd.setCursor(0, 0);
   lcd.print("--->BYE!");
