@@ -15,24 +15,24 @@ public:
 
   void spawn() {
     map[0][0] = p->character;
-    p->py = 0;
-    p->px = 0;
+    p->row = 0;
+    p->column = 0;
   }
   bool spawned() { return (p != 0x0); }
   void right() {
-    if (p->py < 16) {
-      p->py += 1;
+    if (p->column < 16 ) {
+      p->column += 1;
       // y represents columns
-      map[0][p->py] = p->character;
-      map[0][p->py - 1] = ' ';
+      map[0][p->column] = p->character;
+      map[0][p->column - 1] = ' ';
     }
   }
   void left() {
-    if (p->py > 0) {
-      p->py -= 1;
+    if (p->column > 0) {
+      p->column -= 1;
       // y represents columns
-      map[0][p->py] = p->character;
-      map[0][p->py + 1] = ' ';
+      map[0][p->column] = p->character;
+      map[0][p->column + 1] = ' ';
     }
   }
   void clear() {

@@ -59,6 +59,7 @@ void loop() {
   }
   // EXIT CONDITION
   m->clear();
+  lcd.clear();
   delay(10);
   lcd.setCursor(0, 0);
   lcd.print("--->BYE!");

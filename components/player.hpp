@@ -1,6 +1,9 @@
 struct player {
+  int sticky;
+  int stickx;
   // track current player position on map
-  int px;
-  int py;
+  int row;
+  int column;
   char character;
+  int position;
 };
