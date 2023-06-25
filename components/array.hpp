@@ -20,10 +20,16 @@ public:
   }
   bool spawned() { return (p != 0x0); }
   void right() {
+    p->py += 1;
     // y represents columns
-    p->py++;
     map[0][p->py] = p->character;
     map[0][p->py - 1] = ' ';
+  }
+  void left() {
+    p->py -= 1;
+    // y represents columns
+    map[0][p->py] = p->character;
+    map[0][p->py + 1] = ' ';
   }
   void clear() {
     for (int i = 0; i < 2; i++) {
@@ -32,8 +38,8 @@ public:
         map[i] = 0x0;
       }
     }
-    delete [] map;
-    map=0x0;
+    delete[] map;
+    map = 0x0;
   }
 
 private:

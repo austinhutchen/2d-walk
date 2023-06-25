@@ -1,6 +1,5 @@
 
 #include "./components/array.hpp"
-#include "./components/myll.hpp"
 #include <LiquidCrystal.h>
 
 const int SW_pin = 2; // digital pin connected to switch output
@@ -37,11 +36,13 @@ void game(struct player *p, matrix *grid) {
   if (analogRead(Y_pin) == 0) {
 
     // moving to right
-    p->px += 1;
     m->right();
     display(m);
   }
   if (analogRead(Y_pin) >= 800) {
+    // moving left
+    m->left();
+    display(m);
   }
 }
 
