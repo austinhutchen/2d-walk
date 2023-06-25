@@ -28,10 +28,12 @@ public:
   void clear() {
     for (int i = 0; i < 2; i++) {
       if (map[i] != 0x0) {
-        delete map[i];
+        delete[] map[i];
         map[i] = 0x0;
       }
     }
+    delete [] map;
+    map=0x0;
   }
 
 private:
