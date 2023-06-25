@@ -27,8 +27,10 @@ public:
   }
   void clear() {
     for (int i = 0; i < 2; i++) {
-      delete map[i];
-      map[i] = 0x0;
+      if (map[i] != 0x0) {
+        delete map[i];
+        map[i] = 0x0;
+      }
     }
   }
 

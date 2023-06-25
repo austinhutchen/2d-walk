@@ -19,11 +19,12 @@ void display(matrix *matrix) {
 }
 
 struct player *p = malloc(sizeof(struct player));
-matrix *m = new matrix(p,2,16);
-
-
+matrix *m = new matrix(p, 2, 16);
 
 void game(struct player *p, matrix *grid) {
+  if (p->character != '~') {
+    p->character = '~';
+  }
   // algorithm for running the game itself
   lcd.setCursor(0, 1);
   lcd.print(" X: ");
@@ -41,7 +42,6 @@ void game(struct player *p, matrix *grid) {
     display(m);
   }
   if (analogRead(Y_pin) >= 800) {
-
   }
 }
 
