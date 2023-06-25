@@ -24,6 +24,7 @@ public:
     p->column = 0;
   }
   bool spawned() { return (p != 0x0); }
+  
   void right() {
     if (p->column < 16) {
       p->column += 1;
@@ -31,7 +32,7 @@ public:
       map[0][p->column] = p->character;
       map[0][p->column - 1] = ' ';
     }
-    if (p->column == 16) { 
+    if (p->column == 16) {
       p->row = 1;
       p->column = 0;
     }
@@ -44,7 +45,8 @@ public:
       map[0][p->column + 1] = ' ';
     }
   }
-
+  void up() { p->row -= 1; }
+  void down() { p->row += 1; }
   void clear() {
     for (int i = 0; i < 2; i++) {
       if (map[i] != 0x0) {
