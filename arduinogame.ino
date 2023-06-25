@@ -17,7 +17,7 @@ void display(matrix *matrix) {
   }
 }
 
-struct player *p = malloc(sizeof(struct player));
+struct player *p = new player();
 matrix *m = new matrix(p, 2, 16);
 
 void game(struct player *p, matrix *grid) {
@@ -60,11 +60,11 @@ void loop() {
   // EXIT CONDITION
   m->clear();
   lcd.clear();
+  free(p);
   delay(10);
   lcd.setCursor(0, 0);
   lcd.print("--->BYE!");
   delay(300);
   lcd.clear();
-  free(p);
   return;
 }
