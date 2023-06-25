@@ -44,6 +44,8 @@ public:
     }
     delete[] map;
     map = 0x0;
+    delete p;
+    p=0x0;
   }
 
 private:
