@@ -39,12 +39,12 @@ void game(struct player *p, matrix *grid) {
   if (analogRead(X_pin) == 0) {
 
     // moving to right
-    m->up();
+    m->down();
     display(m);
   }
   if (analogRead(X_pin) >= 800) {
     // moving left
-    m->down();
+    m->up();
     display(m);
   }
 }
