@@ -4,7 +4,7 @@
 class matrix {
 public:
   char **map;
-  matrix(player *_p, unsigned rows, unsigned cols) {
+  matrix(player *_p, unsigned short rows, unsigned short cols) {
     this->p = _p;
     char **a = new char *[rows];
     for (int i = 0; i < rows; ++i)
@@ -20,16 +20,20 @@ public:
   }
   bool spawned() { return (p != 0x0); }
   void right() {
-    p->py += 1;
-    // y represents columns
-    map[0][p->py] = p->character;
-    map[0][p->py - 1] = ' ';
+    if (p->py < 16) {
+      p->py += 1;
+      // y represents columns
+      map[0][p->py] = p->character;
+      map[0][p->py - 1] = ' ';
+    }
   }
   void left() {
-    p->py -= 1;
-    // y represents columns
-    map[0][p->py] = p->character;
-    map[0][p->py + 1] = ' ';
+    if (p->py > 0) {
+      p->py -= 1;
+      // y represents columns
+      map[0][p->py] = p->character;
+      map[0][p->py + 1] = ' ';
+    }
   }
   void clear() {
     for (int i = 0; i < 2; i++) {

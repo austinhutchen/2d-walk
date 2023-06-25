@@ -25,12 +25,7 @@ void game(struct player *p, matrix *grid) {
     p->character = '~';
   }
   // algorithm for running the game itself
-  lcd.setCursor(0, 1);
-  lcd.print(" X: ");
-  lcd.print(p->px);
-  lcd.setCursor(8, 1);
-  lcd.print(" Y: ");
-  lcd.print(p->py);
+
   // player model will go here‰
   // game(p,m);
   if (analogRead(Y_pin) == 0) {
