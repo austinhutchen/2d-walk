@@ -24,7 +24,7 @@ void game(struct player *p, matrix *grid) {
   if (p->character != '~') {
     p->character = '~';
   }
-  
+
   if (analogRead(Y_pin) == 0) {
 
     // moving to right
@@ -34,6 +34,17 @@ void game(struct player *p, matrix *grid) {
   if (analogRead(Y_pin) >= 800) {
     // moving left
     m->left();
+    display(m);
+  }
+  if (analogRead(X_pin) == 0) {
+
+    // moving to right
+    m->up();
+    display(m);
+  }
+  if (analogRead(X_pin) >= 800) {
+    // moving left
+    m->down();
     display(m);
   }
 }
