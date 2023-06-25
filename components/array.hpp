@@ -1,12 +1,9 @@
 #pragma ONCE
 struct player {
-  int sticky;
-  int stickx;
   // track current player position on map
-  int row;
-  int column;
+  unsigned short row;
+  unsigned short column;
   char character;
-  int position;
 };
 
 class matrix {
