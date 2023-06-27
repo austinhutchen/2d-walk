@@ -29,7 +29,7 @@ public:
       map[0][p->column - 1] = ' ';
     }
     if (p->column == 16) {
-      p->row = 1;
+      p->row = 0;
       p->column = 0;
     }
   }
@@ -39,6 +39,10 @@ public:
       // y represents columns
       map[0][p->column] = p->character;
       map[0][p->column + 1] = ' ';
+    }
+    if (p->column == 0) {
+      p->row = 0;
+      p->column = 16;
     }
   }
   void up() {
