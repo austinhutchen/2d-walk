@@ -43,6 +43,8 @@ public:
     if (p->column == 0) {
       p->row = 0;
       p->column = 16;
+      map[p->row][p->column] = p->character;
+      map[p->row + 1][p->column] = ' ';
     }
   }
   void up() {
@@ -51,12 +53,22 @@ public:
       map[p->row][p->column] = p->character;
       map[p->row + 1][p->column] = ' ';
     }
+    if (p->row == 0) {
+      p->row = 1;
+      map[p->row][p->column] = p->character;
+      map[0][p->column] = ' ';
+    }
   }
   void down() {
     if (p->row < 1) {
       p->row += 1;
       map[p->row][p->column] = p->character;
       map[p->row - 1][p->column] = ' ';
+    }
+    if (p->row == 1) {
+      p->row = 0;
+      map[p->row][p->column] = p->character;
+      map[1][p->column] = ' ';
     }
   }
   void clear() {
