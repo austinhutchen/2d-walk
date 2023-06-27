@@ -8,6 +8,13 @@ const int Y_pin = A1; // analog pin connected to Y output
 //                BS  E  D4 D5  D6 D7
 LiquidCrystal lcd(7, 8, 9, 10, 11, 12);
 int buttonApin = 1;
+struct player *p = new player();
+matrix *m = new matrix(p, 2, 16);
+void setup() {
+  pinMode(SW_pin, INPUT);
+  digitalWrite(SW_pin, HIGH);
+  lcd.begin(16, 2);
+}
 
 void display(matrix *matrix) {
   for (int i = 0; i < 2; i++) {
@@ -16,9 +23,6 @@ void display(matrix *matrix) {
     }
   }
 }
-
-struct player *p = new player();
-matrix *m = new matrix(p, 2, 16);
 
 void game(struct player *p, matrix *grid) {
   if (p->character != '~') {
@@ -49,13 +53,8 @@ void game(struct player *p, matrix *grid) {
   }
 }
 
-void setup() {
-  pinMode(SW_pin, INPUT);
-  digitalWrite(SW_pin, HIGH);
-  lcd.begin(16, 2);
-}
-
 void loop() {
+
   while (digitalRead(buttonApin) != LOW) {
     if (!m->spawned()) {
       // player failed to spawn
@@ -67,7 +66,6 @@ void loop() {
   }
   // EXIT CONDITION
   m->clear();
-  free(p);
   delay(10);
   lcd.setCursor(0, 0);
   lcd.print("--->BYE!");
