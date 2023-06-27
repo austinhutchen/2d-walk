@@ -29,7 +29,7 @@ public:
       map[0][p->column - 1] = ' ';
     }
     if (p->column == 16) {
-      p->row = 1;
+      p->row = 0;
       p->column = 0;
     }
   }
@@ -40,9 +40,37 @@ public:
       map[0][p->column] = p->character;
       map[0][p->column + 1] = ' ';
     }
+    if (p->column == 0) {
+      p->row = 0;
+      p->column = 16;
+      map[p->row][p->column] = p->character;
+      map[p->row + 1][p->column] = ' ';
+    }
   }
-  void up() { p->row -= 1; }
-  void down() { p->row += 1; }
+  void up() {
+    if (p->row > 0) {
+      p->row -= 1;
+      map[p->row][p->column] = p->character;
+      map[p->row + 1][p->column] = ' ';
+    }
+    if (p->row == 0) {
+      p->row = 1;
+      map[p->row][p->column] = p->character;
+      map[0][p->column] = ' ';
+    }
+  }
+  void down() {
+    if (p->row < 1) {
+      p->row += 1;
+      map[p->row][p->column] = p->character;
+      map[p->row - 1][p->column] = ' ';
+    }
+    if (p->row == 1) {
+      p->row = 0;
+      map[p->row][p->column] = p->character;
+      map[1][p->column] = ' ';
+    }
+  }
   void clear() {
     for (int i = 0; i < 2; i++) {
       if (map[i] != 0x0) {
