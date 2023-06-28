@@ -1,4 +1,5 @@
 #pragma ONCE
+#define NULLPTR 0x0
 struct player {
   // track current player position on map
   unsigned short row;
@@ -19,7 +20,7 @@ public:
     p->column = 0;
   }
 
-  bool spawned() { return (p != 0x0); }
+  bool spawned() { return (p != NULLPTR); }
 
   void right() {
     if (p->column < 16) {
@@ -73,13 +74,15 @@ public:
   }
   void clear() {
     for (int i = 0; i < 2; i++) {
+      if (map[i]) {
         delete[] map[i];
-        map[i] = 0x0;
+        map[i] = NULLPTR;
+      }
     }
     delete[] map;
-    map = 0x0;
+    map = NULLPTR;
     delete p;
-    p = 0x0;
+    p = NULLPTR;
   }
 
 private:
