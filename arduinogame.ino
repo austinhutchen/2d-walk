@@ -56,20 +56,15 @@ void game(struct player *p, matrix *grid) {
 void loop() {
 
   while (digitalRead(buttonApin) != LOW) {
-    if (!m->spawned()) {
-      // player failed to spawn
-      return;
-    }
     game(p, m);
     delay(100);
     lcd.clear();
   }
   // EXIT CONDITION
-  m->clear();
-  delay(10);
   lcd.setCursor(0, 0);
-  lcd.print("--->BYE!");
+  lcd.print("BYE!");
   delay(300);
   lcd.clear();
+  m->clear();
   return;
 }
