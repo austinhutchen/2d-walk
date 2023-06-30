@@ -24,10 +24,7 @@ void display(matrix *matrix) {
   }
 }
 
-void game(struct player *p, matrix *grid) {
-  if (p->character != '~') {
-    p->character = '~';
-  }
+void game(matrix *grid) {
 
   if (analogRead(Y_pin) == 0) {
 
@@ -56,15 +53,13 @@ void game(struct player *p, matrix *grid) {
 void loop() {
 
   while (digitalRead(buttonApin) != LOW) {
-    game(p, m);
-    delay(100);
+    game(m);
+    delay(25);
     lcd.clear();
   }
   // EXIT CONDITION
-  lcd.setCursor(0, 0);
-  lcd.print("BYE!");
+
   delay(300);
-  lcd.clear();
   m->clear();
   return;
 }

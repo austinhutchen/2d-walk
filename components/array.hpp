@@ -10,7 +10,7 @@ struct player {
 class matrix {
 public:
   char **map;
-  matrix(player *_p, unsigned short rows, unsigned short cols) {
+  matrix(player *&_p, unsigned short rows, unsigned short cols) {
     this->p = _p;
     this->map = new char *[rows];
     for (int i = 0; i < rows; ++i)
@@ -18,6 +18,7 @@ public:
     map[0][0] = p->character;
     p->row = 0;
     p->column = 0;
+        this->p->character = '~';
   }
 
   bool spawned() { return (p != NULLPTR); }
@@ -34,6 +35,7 @@ public:
       p->column = 0;
     }
   }
+
   void left() {
     if (p->column > 0) {
       p->column -= 1;
@@ -48,8 +50,9 @@ public:
       map[p->row + 1][p->column] = ' ';
     }
   }
+
   void up() {
-    if (p->row > 0) {
+    if (p->row == 1) {
       p->row -= 1;
       map[p->row][p->column] = p->character;
       map[p->row + 1][p->column] = ' ';
@@ -60,18 +63,20 @@ public:
       map[0][p->column] = ' ';
     }
   }
+
   void down() {
-    if (p->row < 1) {
+    if (p->row == 0) {
       p->row += 1;
       map[p->row][p->column] = p->character;
-      map[p->row - 1][p->column] = ' ';
+      map[p->row - 1][p->column] = 0x0;
     }
     if (p->row == 1) {
       p->row = 0;
       map[p->row][p->column] = p->character;
-      map[1][p->column] = ' ';
+      map[1][p->column] = 0x0;
     }
   }
+
   void clear() {
     for (int i = 0; i < 2; i++) {
       if (map[i]) {
