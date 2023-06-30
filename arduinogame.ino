@@ -8,8 +8,7 @@ const int Y_pin = A1; // analog pin connected to Y output
 //                BS  E  D4 D5  D6 D7
 LiquidCrystal lcd(7, 8, 9, 10, 11, 12);
 int buttonApin = 1;
-struct player *p = new player();
-matrix *m = new matrix(p, 2, 16);
+matrix *m = new matrix(new player(), 2, 16);
 void setup() {
   pinMode(SW_pin, INPUT);
   digitalWrite(SW_pin, HIGH);

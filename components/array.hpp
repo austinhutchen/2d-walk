@@ -10,15 +10,15 @@ struct player {
 class matrix {
 public:
   char **map;
-  matrix(player *&_p, unsigned short rows, unsigned short cols) {
+  matrix(player *_p, unsigned short rows, unsigned short cols) {
     this->p = _p;
     this->map = new char *[rows];
-    for (int i = 0; i < rows; ++i)
+    for (int i = 0; i < rows; i++)
       this->map[i] = new char[cols];
     map[0][0] = p->character;
     p->row = 0;
     p->column = 0;
-        this->p->character = '~';
+    this->p->character = '~';
   }
 
   bool spawned() { return (p != NULLPTR); }
